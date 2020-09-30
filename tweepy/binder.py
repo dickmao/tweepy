@@ -25,6 +25,7 @@ def bind_api(**config):
     class APIMethod(object):
 
         api = config['api']
+        api_root = config.get('api_root', None)
         path = config['path']
         payload_type = config.get('payload_type', None)
         payload_list = config.get('payload_list', False)
@@ -65,7 +66,7 @@ def bind_api(**config):
                 self.api_root = api.search_root
             elif self.upload_api:
                 self.api_root = api.upload_root
-            else:
+            elif not self.api_root:
                 self.api_root = api.api_root
 
             # Perform any path variable substitution
@@ -235,7 +236,8 @@ def bind_api(**config):
 
             # Parse the response payload
             self.return_cursors = (self.return_cursors or
-                                   'cursor' in self.session.params or 'next' in self.session.params)
+                                   'cursor' in self.session.params or
+                                   'next' in self.session.params)
             result = self.parser.parse(self, resp.text, return_cursors=self.return_cursors)
 
             # Store result into cache if one is available.

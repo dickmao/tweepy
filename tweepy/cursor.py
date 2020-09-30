@@ -13,6 +13,8 @@ class Cursor(object):
         if hasattr(method, 'pagination_mode'):
             if method.pagination_mode == 'cursor':
                 self.iterator = CursorIterator(method, *args, **kwargs)
+            elif method.pagination_mode == 'token':
+                self.iterator = TokenIterator(method, *args, **kwargs)
             elif method.pagination_mode == 'dm_cursor':
                 self.iterator = DMCursorIterator(method, *args, **kwargs)
             elif method.pagination_mode == 'id':

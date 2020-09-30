@@ -52,6 +52,8 @@ class JSONParser(Parser):
         if return_cursors and isinstance(json, dict):
             if 'next' in json:
                 return json, json['next']
+            elif 'next_token' in json:
+                return json, json['next_token']
             elif 'next_cursor' in json:
                 if 'previous_cursor' in json:
                     cursors = json['previous_cursor'], json['next_cursor']

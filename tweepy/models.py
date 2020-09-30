@@ -300,7 +300,7 @@ class SearchResults(ResultSet):
     @classmethod
     def parse(cls, api, json):
         metadata = json['search_metadata']
-        results = SearchResults()
+        results = cls()
         results.refresh_url = metadata.get('refresh_url')
         results.completed_in = metadata.get('completed_in')
         results.query = metadata.get('query')
@@ -312,6 +312,20 @@ class SearchResults(ResultSet):
         for status in json['statuses']:
             results.append(status_model.parse(api, status))
         return results
+
+
+class SearchResultsV2(ResultSet):
+    def __init__(self, api, json):
+        meta = json['meta']
+        self.count = meta.get('result_count')
+        super(SearchResultsV2, self).__init__(
+            meta.get('newest_id'), meta.get('oldest_id'))
+        for obj in json['data']:
+            self.append(obj)
+
+    @classmethod
+    def parse(cls, api, json):
+        return cls(api, json)
 
 
 class List(Model):
@@ -518,6 +532,7 @@ class ModelFactory(object):
     friendship = Friendship
     saved_search = SavedSearch
     search_results = SearchResults
+    search_results_v2 = SearchResultsV2
     list = List
     relation = Relation
     relationship = Relationship
