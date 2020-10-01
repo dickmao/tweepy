@@ -314,14 +314,23 @@ class SearchResults(ResultSet):
         return results
 
 
-class SearchResultsV2(ResultSet):
+class ResultsV2(ResultSet):
+    """Data and Include and Meta entries from a Twitter API v2 query."""
     def __init__(self, api, json):
-        meta = json['meta']
+        meta = json.get('meta', {})
         self.count = meta.get('result_count')
-        super(SearchResultsV2, self).__init__(
-            meta.get('newest_id'), meta.get('oldest_id'))
-        for obj in json['data']:
-            self.append(obj)
+        self.next_token = meta.get('next_token')
+        self.newest_id = meta.get('newest_id')
+        self.oldest_id = meta.get('oldest_id')
+        super(ResultsV2, self).__init__(self.newest_id, self.oldest_id)
+
+        data = json.get('data')
+        if data:
+            if not isinstance(data, list):
+                data = list(data)
+            for obj in data:
+                self.append(obj)
+        self.includes = json.get('includes', {})
 
     @classmethod
     def parse(cls, api, json):
@@ -532,7 +541,7 @@ class ModelFactory(object):
     friendship = Friendship
     saved_search = SavedSearch
     search_results = SearchResults
-    search_results_v2 = SearchResultsV2
+    results_v2 = ResultsV2
     list = List
     relation = Relation
     relationship = Relationship

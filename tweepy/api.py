@@ -16,13 +16,13 @@ from tweepy.utils import list_to_csv
 
 class API(object):
     """Twitter API"""
-    __v1.1 = '/1.1'
-    __v2.0 = '/2'
+    __v1 = '/1.1'
+    __v2 = '/2'
 
     def __init__(self, auth_handler=None,
                  host='api.twitter.com', search_host='search.twitter.com',
-                 upload_host='upload.twitter.com', cache=None, api_root=__v1.1,
-                 search_root='', upload_root=__v1.1, retry_count=0,
+                 upload_host='upload.twitter.com', cache=None, api_root=__v1,
+                 search_root='', upload_root=__v1, retry_count=0,
                  retry_delay=0, retry_errors=None, timeout=60, parser=None,
                  compression=False, wait_on_rate_limit=False,
                  wait_on_rate_limit_notify=False, proxy=''):
@@ -37,9 +37,9 @@ class API(object):
         :param upload_host: url of the upload server,
                             default: 'upload.twitter.com'
         :param cache: Cache to query if a GET method is used, default: None
-        :param api_root: suffix of the api version, default: __v1.1
+        :param api_root: suffix of the api version, default: __v1
         :param search_root: suffix of the search version, default: ''
-        :param upload_root: suffix of the upload version, default: __v1.1
+        :param upload_root: suffix of the upload version, default: __v1
         :param retry_count: number of allowed retries, default: 0
         :param retry_delay: delay in second between retries, default: 0
         :param retry_errors: default: None
@@ -96,7 +96,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/home_timeline.json',
             payload_type='status', payload_list=True,
             allowed_param=['since_id', 'max_id', 'count'],
@@ -113,7 +113,7 @@ class API(object):
 
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/lookup.json',
             payload_type='status', payload_list=True,
             allowed_param=['id', 'include_entities', 'trim_user', 'map',
@@ -130,7 +130,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/user_timeline.json',
             payload_type='status', payload_list=True,
             allowed_param=['id', 'user_id', 'screen_name', 'since_id',
@@ -145,7 +145,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/mentions_timeline.json',
             payload_type='status', payload_list=True,
             allowed_param=['since_id', 'max_id', 'count'],
@@ -159,7 +159,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/retweets_of_me.json',
             payload_type='status', payload_list=True,
             allowed_param=['since_id', 'max_id', 'count'],
@@ -175,7 +175,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/show.json',
             payload_type='status',
             allowed_param=['id', 'trim_user', 'include_my_retweet',
@@ -197,7 +197,7 @@ class API(object):
 
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/update.json',
             method='POST',
             payload_type='status',
@@ -230,7 +230,7 @@ class API(object):
 
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/media/upload.json',
             method='POST',
             payload_type='media',
@@ -250,7 +250,7 @@ class API(object):
 
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/media/metadata/create.json',
             method='POST',
             allowed_param=[],
@@ -273,7 +273,7 @@ class API(object):
 
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/update_with_media.json',
             method='POST',
             payload_type='status',
@@ -292,7 +292,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/destroy/{id}.json',
             method='POST',
             payload_type='status',
@@ -307,7 +307,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/retweet/{id}.json',
             method='POST',
             payload_type='status',
@@ -322,7 +322,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/unretweet/{id}.json',
             method='POST',
             payload_type='status',
@@ -337,7 +337,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/retweets/{id}.json',
             payload_type='status', payload_list=True,
             allowed_param=['id', 'count'],
@@ -351,7 +351,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/retweeters/ids.json',
             payload_type='ids',
             allowed_param=['id', 'cursor', 'stringify_ids']
@@ -364,7 +364,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/users/show.json',
             payload_type='user',
             allowed_param=['id', 'user_id', 'screen_name']
@@ -378,7 +378,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/statuses/oembed.json',
             payload_type='json',
             allowed_param=['id', 'url', 'maxwidth', 'hide_media',
@@ -392,7 +392,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/users/lookup.json',
             payload_type='user', payload_list=True,
             method='POST',
@@ -411,7 +411,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/users/search.json',
             payload_type='user', payload_list=True,
             require_auth=True,
@@ -425,7 +425,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/direct_messages/events/show.json',
             payload_type='direct_message',
             allowed_param=['id'],
@@ -439,7 +439,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/direct_messages/events/list.json',
             payload_type='direct_message', payload_list=True,
             allowed_param=['count', 'cursor'],
@@ -476,7 +476,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/direct_messages/events/new.json',
             method='POST',
             payload_type='direct_message',
@@ -492,7 +492,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/direct_messages/events/destroy.json',
             method='DELETE',
             allowed_param=['id'],
@@ -506,7 +506,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/friendships/create.json',
             method='POST',
             payload_type='user',
@@ -521,7 +521,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/friendships/destroy.json',
             method='POST',
             payload_type='user',
@@ -537,7 +537,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/friendships/show.json',
             payload_type='friendship',
             allowed_param=['source_id', 'source_screen_name',
@@ -556,7 +556,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/friendships/lookup.json',
             payload_type='relationship', payload_list=True,
             allowed_param=['user_id', 'screen_name'],
@@ -570,7 +570,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/friends/ids.json',
             payload_type='ids',
             allowed_param=['id', 'user_id', 'screen_name', 'cursor']
@@ -584,7 +584,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/friends/list.json',
             payload_type='user', payload_list=True,
             allowed_param=['id', 'user_id', 'screen_name', 'cursor', 'count',
@@ -598,7 +598,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/friendships/incoming.json',
             payload_type='ids',
             allowed_param=['cursor']
@@ -611,7 +611,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/friendships/outgoing.json',
             payload_type='ids',
             allowed_param=['cursor']
@@ -624,7 +624,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/followers/ids.json',
             payload_type='ids',
             allowed_param=['id', 'user_id', 'screen_name', 'cursor', 'count']
@@ -638,7 +638,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/followers/list.json',
             payload_type='user', payload_list=True,
             allowed_param=['id', 'user_id', 'screen_name', 'cursor', 'count',
@@ -650,7 +650,7 @@ class API(object):
         """ :reference: https://developer.twitter.com/en/docs/accounts-and-users/manage-account-settings/api-reference/get-account-settings """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/account/settings.json',
             payload_type='json',
             use_cache=False
@@ -666,7 +666,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/account/settings.json',
             method='POST',
             payload_type='json',
@@ -686,7 +686,7 @@ class API(object):
         try:
             return bind_api(
                 api=self,
-                api_root=API.__v1.1,
+                api_root=API.__v1,
                 path='/account/verify_credentials.json',
                 payload_type='user',
                 require_auth=True,
@@ -705,7 +705,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/application/rate_limit_status.json',
             payload_type='json',
             allowed_param=['resources'],
@@ -719,7 +719,7 @@ class API(object):
         headers, post_data = API._pack_image(filename, 700, f=file_)
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/account/update_profile_image.json',
             method='POST',
             payload_type='user',
@@ -735,7 +735,7 @@ class API(object):
         headers, post_data = API._pack_image(filename, 800, f=f)
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/account/update_profile_background_image.json',
             method='POST',
             payload_type='user',
@@ -752,7 +752,7 @@ class API(object):
                                              form_field='banner', f=f)
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/account/update_profile_banner.json',
             method='POST',
             allowed_param=['width', 'height', 'offset_left', 'offset_right'],
@@ -767,7 +767,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/account/update_profile.json',
             method='POST',
             payload_type='user',
@@ -784,7 +784,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/favorites/list.json',
             payload_type='status', payload_list=True,
             allowed_param=['screen_name', 'user_id', 'max_id', 'count',
@@ -798,7 +798,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/favorites/create.json',
             method='POST',
             payload_type='status',
@@ -813,7 +813,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/favorites/destroy.json',
             method='POST',
             payload_type='status',
@@ -828,7 +828,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/blocks/create.json',
             method='POST',
             payload_type='user',
@@ -843,7 +843,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/blocks/destroy.json',
             method='POST',
             payload_type='user',
@@ -858,7 +858,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/mutes/users/ids.json',
             payload_type='ids',
             allowed_param=['cursor'],
@@ -872,7 +872,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/mutes/users/list.json',
             payload_type='user', payload_list=True,
             allowed_param=['cursor', 'include_entities', 'skip_status'],
@@ -887,7 +887,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/mutes/users/create.json',
             method='POST',
             payload_type='user',
@@ -902,7 +902,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/mutes/users/destroy.json',
             method='POST',
             payload_type='user',
@@ -917,7 +917,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/blocks/list.json',
             payload_type='user', payload_list=True,
             allowed_param=['cursor'],
@@ -931,7 +931,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/blocks/ids.json',
             payload_type='ids',
             allowed_param=['cursor'],
@@ -945,7 +945,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/users/report_spam.json',
             method='POST',
             payload_type='user',
@@ -958,7 +958,7 @@ class API(object):
         """ :reference: https://developer.twitter.com/en/docs/accounts-and-users/manage-account-settings/api-reference/get-saved_searches-list """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/saved_searches/list.json',
             payload_type='saved_search', payload_list=True,
             require_auth=True
@@ -971,7 +971,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/saved_searches/show/{id}.json',
             payload_type='saved_search',
             allowed_param=['id'],
@@ -985,7 +985,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/saved_searches/create.json',
             method='POST',
             payload_type='saved_search',
@@ -1000,7 +1000,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/saved_searches/destroy/{id}.json',
             method='POST',
             payload_type='saved_search',
@@ -1015,7 +1015,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/create.json',
             method='POST',
             payload_type='list',
@@ -1030,7 +1030,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/destroy.json',
             method='POST',
             payload_type='list',
@@ -1046,7 +1046,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/update.json',
             method='POST',
             payload_type='list',
@@ -1062,7 +1062,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/list.json',
             payload_type='list', payload_list=True,
             allowed_param=['screen_name', 'user_id', 'reverse'],
@@ -1077,7 +1077,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/memberships.json',
             payload_type='list', payload_list=True,
             allowed_param=['screen_name', 'user_id', 'filter_to_owned_lists',
@@ -1092,7 +1092,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/subscriptions.json',
             payload_type='list', payload_list=True,
             allowed_param=['screen_name', 'user_id', 'cursor', 'count'],
@@ -1108,7 +1108,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/statuses.json',
             payload_type='status', payload_list=True,
             allowed_param=['owner_screen_name', 'slug', 'owner_id', 'list_id',
@@ -1123,7 +1123,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/show.json',
             payload_type='list',
             allowed_param=['owner_screen_name', 'owner_id', 'slug', 'list_id']
@@ -1137,7 +1137,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/members/create.json',
             method='POST',
             payload_type='list',
@@ -1154,7 +1154,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/members/destroy.json',
             method='POST',
             payload_type='list',
@@ -1178,7 +1178,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/members/create_all.json',
             method='POST',
             payload_type='list',
@@ -1203,7 +1203,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/members/destroy_all.json',
             method='POST',
             payload_type='list',
@@ -1220,7 +1220,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/members.json',
             payload_type='user', payload_list=True,
             allowed_param=['owner_screen_name', 'slug', 'list_id', 'owner_id',
@@ -1235,7 +1235,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/members/show.json',
             payload_type='user',
             allowed_param=['list_id', 'slug', 'user_id', 'screen_name',
@@ -1249,7 +1249,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/subscribers/create.json',
             method='POST',
             payload_type='list',
@@ -1264,7 +1264,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/subscribers/destroy.json',
             method='POST',
             payload_type='list',
@@ -1281,7 +1281,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/subscribers.json',
             payload_type='user', payload_list=True,
             allowed_param=['owner_screen_name', 'slug', 'owner_id', 'list_id',
@@ -1297,7 +1297,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/lists/subscribers/show.json',
             payload_type='user',
             allowed_param=['owner_screen_name', 'slug', 'screen_name',
@@ -1309,7 +1309,7 @@ class API(object):
         """ :reference: https://developer.twitter.com/en/docs/trends/locations-with-trending-topics/api-reference/get-trends-available """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/trends/available.json',
             payload_type='json'
         )
@@ -1321,7 +1321,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/trends/place.json',
             payload_type='json',
             allowed_param=['id', 'exclude']
@@ -1334,7 +1334,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/trends/closest.json',
             payload_type='json',
             allowed_param=['lat', 'long']
@@ -1349,7 +1349,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/search/tweets.json',
             payload_type='search_results',
             allowed_param=['q', 'lang', 'locale', 'since_id', 'geocode',
@@ -1365,7 +1365,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/tweets/search/30day/{}.json'.format(environment_name),
             payload_type='status', payload_list=True,
             allowed_param=['query', 'tag', 'fromDate', 'toDate', 'maxResults',
@@ -1381,7 +1381,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/tweets/search/fullarchive/{}.json'.format(environment_name),
             payload_type='status', payload_list=True,
             allowed_param=['query', 'tag', 'fromDate', 'toDate', 'maxResults',
@@ -1397,7 +1397,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/geo/reverse_geocode.json',
             payload_type='place', payload_list=True,
             allowed_param=['lat', 'long', 'accuracy', 'granularity',
@@ -1411,7 +1411,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/geo/id/{id}.json',
             payload_type='place',
             allowed_param=['id']
@@ -1426,7 +1426,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/geo/search.json',
             payload_type='place', payload_list=True,
             allowed_param=['lat', 'long', 'query', 'ip', 'granularity',
@@ -1440,7 +1440,7 @@ class API(object):
         """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/geo/similar_places.json',
             payload_type='place', payload_list=True,
             allowed_param=['lat', 'long', 'name', 'contained_within']
@@ -1451,7 +1451,7 @@ class API(object):
         """ :reference: https://developer.twitter.com/en/docs/developer-utilities/supported-languages/api-reference/get-help-languages """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/help/languages.json',
             payload_type='json',
             require_auth=True
@@ -1462,7 +1462,7 @@ class API(object):
         """ :reference: https://developer.twitter.com/en/docs/developer-utilities/configuration/api-reference/get-help-configuration """
         return bind_api(
             api=self,
-            api_root=API.__v1.1,
+            api_root=API.__v1,
             path='/help/configuration.json',
             payload_type='json',
             require_auth=True
@@ -1470,19 +1470,34 @@ class API(object):
 
     """ Twitter API v2.0 Early Preview """
 
-    @pagination(mode='next')
-    def search_v2(self):
+    @property
+    def recent_search(self):
         return bind_api(
             api=self,
-            api_root=API.__v2.0,
-            path='/tweets/search/recent.json',
-            payload_type='search_results_v2',
+            api_root=API.__v2,
+            path='/tweets/search/recent',
+            payload_type='results_v2',
             allowed_param=[
                 'query', 'start_time', 'end_time',
                 'since_id', 'until_id', 'max_results',
-                'next_token'
+                'next_token', 'expansions',
+                'media.fields', 'place.fields',
+                'poll.fields', 'tweet.fields', 'user.fields',
             ]
-        )(*args, **kwargs)
+        )
+
+    @property
+    def tweets_lookup(self):
+        return bind_api(
+            api=self,
+            api_root=API.__v2,
+            path='/tweets',
+            payload_type='results_v2',
+            allowed_param=[
+                'ids', 'expansions', 'media.fields', 'place.fields',
+                'poll.fields', 'tweet.fields', 'user.fields',
+            ]
+        )
 
     """ Internal use only """
 

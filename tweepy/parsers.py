@@ -52,15 +52,13 @@ class JSONParser(Parser):
         if return_cursors and isinstance(json, dict):
             if 'next' in json:
                 return json, json['next']
-            elif 'next_token' in json:
-                return json, json['next_token']
             elif 'next_cursor' in json:
                 if 'previous_cursor' in json:
                     cursors = json['previous_cursor'], json['next_cursor']
                     return json, cursors
                 else:
                     return json, json['next_cursor']
-        return json
+        return json, None
 
     def parse_error(self, payload):
         error_object = json_lib.loads(payload)
@@ -92,16 +90,16 @@ class ModelParser(JSONParser):
             raise TweepError('No model for this payload type: '
                              '%s' % method.payload_type)
 
-        json = JSONParser.parse(self, method, payload, return_cursors=return_cursors)
-        if isinstance(json, tuple):
-            json, cursors = json
-        else:
-            cursors = None
+        json, cursors = JSONParser.parse(self, method, payload, return_cursors=return_cursors)
 
         if method.payload_list:
             result = model.parse_list(method.api, json)
         else:
             result = model.parse(method.api, json)
+
+        # JSONParser.parse() prematurely attempts to divine a cursor
+        if return_cursors and hasattr(result, 'next_token'):
+            cursors = result.next_token
 
         if cursors:
             return result, cursors

@@ -99,11 +99,11 @@ def bind_api(**config):
                     raise TweepError('Too many parameters supplied!')
 
             for k, arg in kwargs.items():
+                k = k.replace('__', '.')
                 if arg is None:
                     continue
                 if k in self.session.params:
                     raise TweepError('Multiple values for parameter %s supplied!' % k)
-
                 self.session.params[k] = convert_to_utf8_str(arg)
 
             log.debug("PARAMS: %r", self.session.params)
@@ -235,8 +235,8 @@ def bind_api(**config):
                     raise TweepError(error_msg, resp, api_code=api_error_code)
 
             # Parse the response payload
-            self.return_cursors = (self.return_cursors or
-                                   'cursor' in self.session.params or
+            self.return_cursors = (self.return_cursors or \
+                                   'cursor' in self.session.params or \
                                    'next' in self.session.params)
             result = self.parser.parse(self, resp.text, return_cursors=self.return_cursors)
 
@@ -257,7 +257,9 @@ def bind_api(**config):
             method.session.close()
 
     # Set pagination mode
-    if 'cursor' in APIMethod.allowed_param:
+    if 'next_token' in APIMethod.allowed_param:
+        _call.pagination_mode = 'next_v2'
+    elif 'cursor' in APIMethod.allowed_param:
         if APIMethod.payload_type == 'direct_message':
             _call.pagination_mode = 'dm_cursor'
         else:
