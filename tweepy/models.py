@@ -317,13 +317,10 @@ class SearchResults(ResultSet):
 class ResultsV2(ResultSet):
     """Data and Include and Meta entries from a Twitter API v2 query."""
     def __init__(self, api, json):
-        meta = json.get('meta', {})
-        self.count = meta.get('result_count')
-        self.next_token = meta.get('next_token')
-        self.newest_id = meta.get('newest_id')
-        self.oldest_id = meta.get('oldest_id')
-        super(ResultsV2, self).__init__(self.newest_id, self.oldest_id)
-
+        self.meta = json.get('meta', {})
+        self.next_token = self.meta.get('next_token')
+        super(ResultsV2, self).__init__(self.meta.get('newest_id'),
+                                        self.meta.get('oldest_id'))
         data = json.get('data')
         if data:
             if not isinstance(data, list):
